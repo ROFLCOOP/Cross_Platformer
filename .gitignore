@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+Cross-Platformer/ProjectSettings/
+
+Cross-Platformer/UnityPackageManager/
