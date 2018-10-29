@@ -27,7 +27,7 @@ public class Colour_Select : MonoBehaviour {
         horiz_neg_press = false;
         if (!horiz_pos_press)
         {
-            if (colourNo < 6) { colourNo++; }
+            if (colourNo < 5) { colourNo++; }
             else { colourNo = 0; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
@@ -39,10 +39,10 @@ public class Colour_Select : MonoBehaviour {
     void OnHorizontal_neg()
     {
         horiz_pos_press = false;
-        if (!horiz_pos_press)
+        if (!horiz_neg_press)
         {
-            if (colourNo < 5) { colourNo++; }
-            else { colourNo = 0; }
+            if (colourNo >= 0) { colourNo--; }
+            else { colourNo = 5; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
             horiz_neg_press = true;
