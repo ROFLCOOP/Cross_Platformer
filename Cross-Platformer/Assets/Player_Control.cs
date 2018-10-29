@@ -45,6 +45,7 @@ public class Player_Control : MonoBehaviour {
 		{
 			Velocity.z += -Velocity.z * Time.deltaTime;
 			Velocity.x += -Velocity.x * Time.deltaTime;
+			Velocity.y += -Velocity.y * Time.deltaTime;
 		}
 		transform.Translate(Velocity);
 	}
