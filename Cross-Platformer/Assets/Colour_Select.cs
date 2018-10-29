@@ -13,7 +13,7 @@ public class Colour_Select : MonoBehaviour {
     bool horiz_pos_press = false;
     bool horiz_neg_press = false;
 
-    public Text P2Text;
+    public Text PlayerText;
     bool colourSelected = false;
 
 	// Use this for initialization
@@ -31,8 +31,9 @@ public class Colour_Select : MonoBehaviour {
             else { colourNo = 0; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
-            horiz_pos_press = true;
+            
         }
+        horiz_pos_press = true;
     }
 
     void OnHorizontal_neg()
@@ -56,11 +57,11 @@ public class Colour_Select : MonoBehaviour {
 
     void OnSelect()
     {
-        if (!colourSelected) { P2Text.color = myTexture.color; colourSelected = true; }
+        if (!colourSelected) { PlayerText.color = myTexture.color; colourSelected = true; }
     }
 
     void OnBack()
     {
-        if (colourSelected) { P2Text.color = Color.white; colourSelected = false; }
+        if (colourSelected) { PlayerText.color = Color.white; colourSelected = false; }
     }
 }
