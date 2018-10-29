@@ -6,22 +6,22 @@ public class Debug_Judge_Script : MonoBehaviour {
 
     void OnHorizontal_pos()
     {
-        Debug.Log("Horizontal Axis Positive button Pressed");
+        Debug.Log("Left stick pushed to right");
     }
 
     void OnHorizontal_neg()
     {
-        Debug.Log("Horizontal Axis Negative button Pressed");
+        Debug.Log("Left stick pushed to left");
     }
 
     void OnVertical_neg()
     {
-        Debug.Log("Vertical Axis Negative button Pressed");
+        Debug.Log("Left stick pushed downwards");
     }
 
     void OnVertical_pos()
     {
-        Debug.Log("Vertical Axis Positive button Pressed");
+        Debug.Log("Left stick pushed upwards");
     }
 
     void OnJump()
