@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a08df5c88da0d44da7932b26cdd53b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  P2Text: {fileID: 357663489}
 --- !u!23 &250920166
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -274,6 +275,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &357663488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 357663491}
+  - component: {fileID: 357663490}
+  - component: {fileID: 357663489}
+  m_Layer: 5
+  m_Name: P2 Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &357663489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 357663488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 84
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 154
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: P2
+--- !u!222 &357663490
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 357663488}
+--- !u!224 &357663491
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 357663488}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1502831719}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 517, y: -233}
+  m_SizeDelta: {x: 733.75, y: 334.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &494613862 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4515913513377824, guid: 1ac34b78b3608844087cf07d2aebbdb8,
@@ -397,13 +472,38 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4515913513377824, guid: 1ac34b78b3608844087cf07d2aebbdb8, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
         type: 2}
       propertyPath: PS4_Player
       value: 
       objectReference: {fileID: 1077629028}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: playerNo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: LS_Vertical_negative
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: LS_Vertical_positive
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: Button_Fire1
+      value: OnBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: Button_Jump
+      value: OnSelect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ac34b78b3608844087cf07d2aebbdb8, type: 2}
   m_IsPrefabParent: 0
@@ -511,6 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a08df5c88da0d44da7932b26cdd53b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  P2Text: {fileID: 0}
 --- !u!23 &1077629030
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -728,6 +829,7 @@ RectTransform:
   - {fileID: 1011429885}
   - {fileID: 1745430121}
   - {fileID: 1923870762}
+  - {fileID: 357663491}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -826,7 +928,7 @@ GameObject:
   - component: {fileID: 1923870764}
   - component: {fileID: 1923870763}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: P1 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -882,7 +984,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "P1\t\t\t  P2"
+  m_Text: P1
 --- !u!222 &1923870764
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -956,7 +1058,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4515913513377824, guid: 1ac34b78b3608844087cf07d2aebbdb8, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
         type: 2}
@@ -966,6 +1068,31 @@ Prefab:
     - target: {fileID: 1452183297872318, guid: 1ac34b78b3608844087cf07d2aebbdb8, type: 2}
       propertyPath: m_Name
       value: PS4_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: playerNo
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: LS_Vertical_negative
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: LS_Vertical_positive
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: Button_Fire1
+      value: OnBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114472616138449128, guid: 1ac34b78b3608844087cf07d2aebbdb8,
+        type: 2}
+      propertyPath: Button_Jump
+      value: OnSelect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ac34b78b3608844087cf07d2aebbdb8, type: 2}

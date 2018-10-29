@@ -52,3 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PS4_Player: {fileID: 0}
+  playerNo: 1
+  LS_Horizontal_positive: OnHorizontal_pos
+  LS_Horizontal_negative: OnHorizontal_neg
+  LS_Horizontal_reset: OnHorizontal_reset
+  LS_Vertical_positive: OnVertical_pos
+  LS_Vertical_negative: OnVertical_neg
+  Button_Fire1: OnFire1
+  Button_Jump: OnJump

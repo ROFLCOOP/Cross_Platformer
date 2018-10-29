@@ -14,6 +14,11 @@ public class Debug_Judge_Script : MonoBehaviour {
         Debug.Log("Left stick pushed to left");
     }
 
+    void OnHorizontal_reset()
+    {
+        Debug.Log("Left stick has been centred horizontally");
+    }
+
     void OnVertical_neg()
     {
         Debug.Log("Left stick pushed downwards");
