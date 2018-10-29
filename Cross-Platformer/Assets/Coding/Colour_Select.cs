@@ -13,7 +13,7 @@ public class Colour_Select : MonoBehaviour {
     bool horiz_pos_press = false;
     bool horiz_neg_press = false;
 
-    public Text PlayerText;
+    public Text P2Text;
     bool colourSelected = false;
 
 	// Use this for initialization
@@ -27,13 +27,12 @@ public class Colour_Select : MonoBehaviour {
         horiz_neg_press = false;
         if (!horiz_pos_press)
         {
-            if (colourNo < 5) { colourNo++; }
+            if (colourNo < 6) { colourNo++; }
             else { colourNo = 0; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
-            
+            horiz_pos_press = true;
         }
-        horiz_pos_press = true;
     }
 
     void OnHorizontal_neg()
@@ -41,7 +40,7 @@ public class Colour_Select : MonoBehaviour {
         horiz_pos_press = false;
         if (!horiz_neg_press)
         {
-            if (colourNo > 0) { colourNo--; }
+            if (colourNo >= 0) { colourNo--; }
             else { colourNo = 5; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
@@ -57,13 +56,11 @@ public class Colour_Select : MonoBehaviour {
 
     void OnSelect()
     {
-        if (!colourSelected) { PlayerText.color = myTexture.color; colourSelected = true; }
-        Debug.Log("Select pressed");
+        if (!colourSelected) { P2Text.color = myTexture.color; colourSelected = true; }
     }
 
     void OnBack()
     {
-        if (colourSelected) { PlayerText.color = Color.white; colourSelected = false; }
-        Debug.Log("Back pressed");
+        if (colourSelected) { P2Text.color = Color.white; colourSelected = false; }
     }
 }
