@@ -26,7 +26,7 @@ public class Debug_Judge_Script : MonoBehaviour {
 
     void OnJump()
     {
-        Debug.Log("Jump butoon Pressed");
+        Debug.Log("Jump butoon Pressed");   
     }
 
     void OnFire1()

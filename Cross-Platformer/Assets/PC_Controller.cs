@@ -36,6 +36,8 @@ public class PC_Controller : MonoBehaviour {
             PC_Player.SendMessage("OnFire1");
         }
 
+
+
         if (Input.GetButtonDown("Jump"))
         {
             PC_Player.SendMessage("OnJump");
