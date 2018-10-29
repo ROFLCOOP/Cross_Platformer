@@ -41,7 +41,7 @@ public class Colour_Select : MonoBehaviour {
         horiz_pos_press = false;
         if (!horiz_neg_press)
         {
-            if (colourNo >= 0) { colourNo--; }
+            if (colourNo > 0) { colourNo--; }
             else { colourNo = 5; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
@@ -58,10 +58,12 @@ public class Colour_Select : MonoBehaviour {
     void OnSelect()
     {
         if (!colourSelected) { PlayerText.color = myTexture.color; colourSelected = true; }
+        Debug.Log("Select pressed");
     }
 
     void OnBack()
     {
         if (colourSelected) { PlayerText.color = Color.white; colourSelected = false; }
+        Debug.Log("Back pressed");
     }
 }
