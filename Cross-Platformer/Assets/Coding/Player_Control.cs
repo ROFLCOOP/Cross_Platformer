@@ -7,12 +7,17 @@ public class Player_Control : MonoBehaviour {
 	[Range(1, 100)]
 	public float Speed = 25.0f;
 
+	private bool spaceHeld = false;
+	private float timer = 0;
+	private const float timerIncrement = 0.001f;
+
 	// Use this for initialization
 	void Start() {
 
 	}
 
 	Vector3 Velocity = new Vector3(0, 0, 0);
+	Vector3 Jump = new Vector3(0, 0, 0);
 
 	// Update is called once per frame
 	void Update () {
@@ -36,16 +41,37 @@ public class Player_Control : MonoBehaviour {
 			Velocity += transform.right * Speed * Time.deltaTime;
 		}
 
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKey(KeyCode.Space) && !spaceHeld)
 		{
-			transform.Translate(transform.up * Speed);
+			//transform.Translate(transform.up * Speed);
+			spaceHeld = true;
+			Jump.y = 1;
+		}
+
+		if(spaceHeld || timer > 0.0f)
+		{
+			if (!Input.GetKey(KeyCode.Space))
+			{
+				spaceHeld = false;
+			}
+			timer += Time.deltaTime * timerIncrement;
+			if(timer < 1.0f && spaceHeld)
+			{
+				Jump.y -= 0.5f * Time.deltaTime;
+			}
+			else
+			{
+				timer = 0.0f;
+				Velocity.y = 0;
+			}
+			transform.Translate(Jump);
 		}
 
 		if(Velocity.x != 0 || Velocity.y != 0 || Velocity.z != 0)
 		{
 			Velocity.z += -Velocity.z * Time.deltaTime;
 			Velocity.x += -Velocity.x * Time.deltaTime;
-			Velocity.y += -Velocity.y * Time.deltaTime;
+			Velocity.y += -Velocity.y * 8 * Time.deltaTime;
 		}
 		transform.Translate(Velocity);
 	}
