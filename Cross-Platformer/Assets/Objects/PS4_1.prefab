@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452183297872318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d145bc87012ed449ad98d6b29d4a53d, type: 3}
+  m_Script: {fileID: 11500000, guid: fe9740c713ea48a46b0244da83083e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PS4_Player: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   LS_Horizontal_positive: OnHorizontal_pos
   LS_Horizontal_negative: OnHorizontal_neg
   LS_Horizontal_reset: OnHorizontal_reset
-  LS_Vertical_positive: OnVertical_pos
-  LS_Vertical_negative: OnVertical_neg
-  Button_Fire1: OnFire1
-  Button_Jump: OnJump
+  LS_Vertical_positive: 
+  LS_Vertical_negative: 
+  Button_Fire1: OnBack
+  Button_Jump: OnSelect
