@@ -7,9 +7,6 @@ public class PS4_Controller : MonoBehaviour {
 
     public GameObject PS4_Player;
 
-    [Range(1,2)]
-    public int playerNo;
-
     public string LS_Horizontal_positive;
     public string LS_Horizontal_negative;
     public string LS_Horizontal_reset;
@@ -19,6 +16,9 @@ public class PS4_Controller : MonoBehaviour {
 
     public string Button_Fire1;
     public string Button_Jump;
+
+    int playerNo;
+    int joyStickNo;
 
     // Update is called once per frame
     void Update () {
