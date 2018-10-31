@@ -7,23 +7,27 @@ public class Colour_Select : MonoBehaviour {
 
     Material myTexture;
 
-    Color[] palette = new Color[6]{ Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
+    public Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
+
     int colourNo = 0;
     bool horiz_pos_press = false;
     bool horiz_neg_press = false;
 
     bool hasController = false;
 
+    public GameObject Controls_Manager;
+
+    public Text label;
+
     //Controller ID
 
 
-
+    [Range(1,2)]
     public int playerNo = 1;
 
     public Material activated_mat;
     GameObject Scene_Controls;
 
-    public Text P2Text;
     bool colourSelected = false;
     public class assignControllers
     {
@@ -32,14 +36,18 @@ public class Colour_Select : MonoBehaviour {
         public bool HasControllerAssigned;
     };
     List<assignControllers> playerSpaces;
-    
-    
 
-	// Use this for initialization
-	void Start () {
+    MeshRenderer renderer;
+    private object controller;
+
+    // Use this for initialization
+    void Start () {
         myTexture = GetComponent<MeshRenderer>().material;
         Scene_Controls = GameObject.Find("Scene_Director");
-	}
+        Controls_Manager = GameObject.Find("PS4_Inbox");
+
+        renderer = GetComponent<MeshRenderer>();
+    }
 
     void StartUp()
     {
@@ -83,10 +91,10 @@ public class Colour_Select : MonoBehaviour {
 
     void OnSelect()
     {
-        if (!hasController) { /*AddPlayerController(playerNo);*/ myTexture = activated_mat; }
-        else
+        if (hasController)
         {
-            if (!colourSelected) { P2Text.color = myTexture.color; colourSelected = true; }
+            int codeNumber = playerNo * 10 + colourNo;
+            if (!colourSelected) { Controls_Manager.SendMessage("AssignColour", codeNumber); label.color = palette[colourNo]; Controls_Manager.SendMessage("ReadyPlayer", playerNo); }
             Debug.Log("Select Button Pressed");
         }
         
@@ -94,8 +102,20 @@ public class Colour_Select : MonoBehaviour {
 
     void OnBack()
     {
-        if (colourSelected) { P2Text.color = Color.white; colourSelected = false; }
+        if (colourSelected) { colourSelected = false; }
         Debug.Log("Back Button Pressed");
+    }
+
+    void ActivatePlayer()
+    {
+        hasController = true;
+        myTexture = activated_mat;
+        renderer.material = activated_mat;
+    }
+
+    void OnStart()
+    {
+        if (playerNo == 1) { Controls_Manager.SendMessage("LoadScene"); }
     }
 
     //void AddPlayerController(int Controller)
