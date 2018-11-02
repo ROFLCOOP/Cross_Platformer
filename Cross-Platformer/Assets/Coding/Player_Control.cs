@@ -72,7 +72,7 @@ public class Player_Control : MonoBehaviour {
 			jumpDecelerationTimer = 0;
 		}
 
-
+		// create rays here for frontal colission detection
 
 		return inputVelocity;
 
