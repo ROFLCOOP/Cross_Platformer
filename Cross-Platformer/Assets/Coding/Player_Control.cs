@@ -7,29 +7,47 @@ public class Player_Control : MonoBehaviour {
 	[Range(1, 100)]
 	public float Speed = 25.0f;
 
+	private Vector3 gravity = new Vector3 (0.0f, 0.6f, 0.0f);
+
 	//private bool spaceHeld = false;
 	private bool jumping = false;
 	private float timer = 0;
 	private const float timerIncrement = 0.001f;
+	private const int maxDistanceray = 1000;
+	private float height = 0;
 
 	// Use this for initialization
 	void Start() {
 
 	}
 
-	
 
+	Vector3 frameJumpVelocity = new Vector3(0, 0, 0);
 	Vector3 Velocity = new Vector3(0, 0, 0);
 	Vector3 Jump = new Vector3(0, 0, 0);
 
-	// Update is called once per frame
-	void Update () {
-		Ray height = new Ray(transform.position, -transform.up);
+	GameObject ground;
+
+	void getHeight ()
+	{
+		RaycastHit hit;
+		int layerMask = 1 << 8;
+		layerMask = ~layerMask;
+		if (Physics.Raycast(transform.position, -transform.up, out hit, maxDistanceray, layerMask))
+		{
+			height = hit.distance;
+			ground = hit.collider.gameObject;
+		}
+
+	}
+
+	void getInput()
+	{
 		if (Input.GetKey(KeyCode.W))
 		{
 			Velocity += transform.forward * Speed * Time.deltaTime;
 		}
-		
+
 		if (Input.GetKey(KeyCode.S))
 		{
 			Velocity += -transform.forward * Speed * Time.deltaTime;
@@ -47,53 +65,81 @@ public class Player_Control : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.Space) && !jumping)
 		{
-			//transform.Translate(transform.up * Speed);
 			jumping = true;
-			//spaceHeld = true;
-			Jump.y = 0.5f;
+			Jump.y = 15.0f;
 		}
+	}
 
+	void getVelocity()
+	{
 		if (jumping)
 		{
-			//if (!Input.GetKey(KeyCode.Space))
-			//{
-			//	spaceHeld = false;
-			//}
 			timer += Time.deltaTime;
 			if (timer < 0.5f)
 			{
-				Jump.y -= Time.deltaTime * 1.4f;
+				Jump.y -= Time.deltaTime * 15.0f;
 			}
 			else
 			{
-				Jump.y -= Time.deltaTime * 0.6f;
+				Jump.y -= Time.deltaTime * 10.0f;
 			}
-			
-			transform.Translate(Jump);
 
-			
-			if (transform.position.y < 0)
+			frameJumpVelocity = Jump * Time.deltaTime;
+
+			if (height < -frameJumpVelocity.y)
 			{
 				jumping = false;
-				timer = 0.0f;
+				Vector3 pos = transform.position;
+				pos.y -= height;
+				transform.position = pos;
+			}
+			else
+			{
+				transform.Translate(frameJumpVelocity);
 			}
 		}
 
-		if(Velocity.magnitude > 0)
+		if (Velocity.magnitude > 0)
 		{
 			Velocity.z += -Velocity.z * Time.deltaTime;
 			Velocity.x += -Velocity.x * Time.deltaTime;
-			//Velocity.y += -Velocity.y * 8 * Time.deltaTime;
+			if (!jumping && height > 0)
+			{
+				Velocity.y += -0.5f * Time.deltaTime;
+			}
 
-			
 		}
-		transform.Translate(Velocity);
+	}
 
-		if (transform.position.y < 0)
+	void applyVelocity()
+	{
+		if (Velocity.y > height)
 		{
-			Vector3 temp = transform.position;
-			temp.y = 0;
-			transform.position = temp;
+			Velocity.y = height;
+			transform.Translate(Velocity);
+			Velocity.y = 0;
 		}
+		else
+		{
+			transform.Translate(Velocity);
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		getHeight();
+		Debug.Log(height);
+
+		getInput(); // contains anything that checks for player input
+
+		getVelocity(); // changes velocity values where necessary
+
+		applyVelocity(); // applies all velocity
+		
+	}
+
+	// Update is called once per frame
+	void Update () {
+
 	}
 }
