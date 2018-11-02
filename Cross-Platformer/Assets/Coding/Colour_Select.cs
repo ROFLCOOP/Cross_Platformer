@@ -32,12 +32,15 @@ public class Colour_Select : MonoBehaviour {
 
     new MeshRenderer renderer;
     private object controller;
+    Controller_Management_Behaviour control_mnge_funcs;
 
     // Use this for initialization
     void Start () {
         myTexture = GetComponent<MeshRenderer>().material;
+
         //Scene_Controls = GameObject.Find("Scene_Director");
         Controls_Manager = GameObject.Find("PS4_Inbox");
+        control_mnge_funcs = Controls_Manager.GetComponent<Controller_Management_Behaviour>();
 
         renderer = GetComponent<MeshRenderer>();
     }
@@ -82,7 +85,12 @@ public class Colour_Select : MonoBehaviour {
 
     public void OnJump()                            //Jump button is used as a select item, will only be trigger after assigned to a controller
     {
-        if (!colourSelected) { label.color = palette[colourNo]; Controls_Manager.SendMessage("ReadyPlayer", playerNo); }
+        if (!colourSelected)
+        {
+            control_mnge_funcs.AssignPlayerColour(playerNo-1, colourNo);
+            label.color = palette[colourNo];
+            control_mnge_funcs.ReadyPlayer(playerNo);
+        }
         Debug.Log("Select Button Pressed");
     }
 
@@ -95,6 +103,7 @@ public class Colour_Select : MonoBehaviour {
     {
         myTexture = activated_mat;
         renderer.material = activated_mat;
+        myTexture.color = Color.red;
     }
 
     public void OnStart()                           //Options buttons press, Load scene will only occur if both players are ready

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 326bcb6cf59e90f4f94a8bc5550c51af
+timeCreated: 1541118799
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Somerton Dense
+  fontNames:
+  - Somerton Dense
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
