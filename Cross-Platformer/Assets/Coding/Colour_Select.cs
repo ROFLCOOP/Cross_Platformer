@@ -7,27 +7,53 @@ public class Colour_Select : MonoBehaviour {
 
     Material myTexture;
 
-    Color[] palette = new Color[6]{ Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
-    int colourNo = 0;
+    public Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
 
+    int colourNo = 0;
     bool horiz_pos_press = false;
     bool horiz_neg_press = false;
 
-    public Text P2Text;
+
+
+    public GameObject Controls_Manager;
+
+    public Text label;
+
+    //Controller ID
+
+
+    [Range(1,2)]
+    public int playerNo = 1;
+
+    public Material activated_mat;
+    //GameObject Scene_Controls;
+
     bool colourSelected = false;
 
-	// Use this for initialization
-	void Start () {
+    new MeshRenderer renderer;
+    private object controller;
+
+    // Use this for initialization
+    void Start () {
         myTexture = GetComponent<MeshRenderer>().material;
-	}
+        //Scene_Controls = GameObject.Find("Scene_Director");
+        Controls_Manager = GameObject.Find("PS4_Inbox");
+
+        renderer = GetComponent<MeshRenderer>();
+    }
+
+    void StartUp()
+    {
+        OnJump();
+    }
 	
 	// Update is called once per frame
-    void OnHorizontal_pos()
+    public void OnHorizontal_pos()                  //When Controller is pushed to the right it cycles through the colour choices
     {
         horiz_neg_press = false;
         if (!horiz_pos_press)
         {
-            if (colourNo < 6) { colourNo++; }
+            if (colourNo < 5) { colourNo++; }
             else { colourNo = 0; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
@@ -35,12 +61,12 @@ public class Colour_Select : MonoBehaviour {
         }
     }
 
-    void OnHorizontal_neg()
+    public void OnHorizontal_neg()                  //When Controller is pushed to the left it cycles through the colour choices
     {
         horiz_pos_press = false;
         if (!horiz_neg_press)
         {
-            if (colourNo >= 0) { colourNo--; }
+            if (colourNo > 0) { colourNo--; }
             else { colourNo = 5; }
             myTexture.color = palette[colourNo];
             Debug.Log("colour change!");
@@ -48,19 +74,52 @@ public class Colour_Select : MonoBehaviour {
         }
     }
 
-    void OnHorizontal_reset()
+    public void OnHorizontal_reset()                
     {
         horiz_pos_press = false;
         horiz_neg_press = false;
     }
 
-    void OnSelect()
+    public void OnJump()                            //Jump button is used as a select item, will only be trigger after assigned to a controller
     {
-        if (!colourSelected) { P2Text.color = myTexture.color; colourSelected = true; }
+        if (!colourSelected) { label.color = palette[colourNo]; Controls_Manager.SendMessage("ReadyPlayer", playerNo); }
+        Debug.Log("Select Button Pressed");
     }
 
-    void OnBack()
+    public void OnFire1()                                   //Fire1 functions as a back button, undoing the 
     {
-        if (colourSelected) { P2Text.color = Color.white; colourSelected = false; }
+       
     }
+
+    public void ActivatePlayer()                    //Activates Player for when player has reached the "assigned controller" state
+    {
+        myTexture = activated_mat;
+        renderer.material = activated_mat;
+    }
+
+    public void OnStart()                           //Options buttons press, Load scene will only occur if both players are ready
+    {
+        if (playerNo == 1) { Controls_Manager.SendMessage("LoadScene"); }
+    }
+
+    public void OnVertical_neg()
+    {
+
+    }
+    public void OnVertical_pos()
+    {
+
+    }
+
+    //void AddPlayerController(int Controller)
+    //{
+    //    playerSpaces.Add(new assignControllers(Controller));
+    //    foreach (assignControllers player in playerSpaces)
+    //    {
+    //        if (player.HasControllerAssigned == false)
+    //        {
+    //            return player.AssignController(Controller);
+    //        }
+    //    }
+    //}
 }
