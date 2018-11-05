@@ -16,10 +16,10 @@ public class Player_Control : MonoBehaviour {
 	private const float timerIncrement = 0.001f;
 	private const int maxDistanceray = 1000;
 	private float height = 0;
+	private bool CollisionInFront = false;
 
 	// Use this for initialization
 	void Start() {
-
 	}
 
 
@@ -28,18 +28,21 @@ public class Player_Control : MonoBehaviour {
 	Vector3 Jump = new Vector3(0, 0, 0);
 
 	GameObject ground;
+	float radius = 0.5f;
 
-	void updateHeightFromGroundDetails ()
+
+	void updateCollisionDetails ()
 	{
 		RaycastHit hit;
 		int layerMask = 1 << 8;
 		layerMask = ~layerMask;
-		if (Physics.Raycast(transform.position + new Vector3(0, 0.35f, 0), -transform.up, out hit, maxDistanceray, layerMask))
+		if (Physics.Raycast(transform.position + new Vector3(0, -1.0f, 0), -transform.up, out hit, maxDistanceray, layerMask))
 		{
-			height = hit.distance - 0.35f;
+			height = hit.distance;
 			ground = hit.collider.gameObject;
 		}
 
+		
 	}
 
 	Vector3 getInputAcceleration()
@@ -77,36 +80,7 @@ public class Player_Control : MonoBehaviour {
 		return inputVelocity;
 
 	}
-
-	//void getVelocity()
-	//{
-	//	if (jumping)
-	//	{
-	//		timer += Time.deltaTime;
-	//		if (timer < 0.5f)
-	//		{
-	//			Jump.y -= Time.deltaTime * 15.0f;
-	//		}
-	//		else
-	//		{
-	//			Jump.y -= Time.deltaTime * 10.0f;
-	//		}
-	//
-	//		frameJumpVelocity = Jump * Time.deltaTime;
-	//
-	//		if (height < -frameJumpVelocity.y)
-	//		{
-	//			jumping = false;
-	//			Vector3 pos = transform.position;
-	//			pos.y -= height;
-	//			transform.position = pos;
-	//		}
-	//		else
-	//		{
-	//			transform.Translate(frameJumpVelocity);
-	//		}
-	//	}
-	//
+	
 
 	private void applyGravity()
 	{
@@ -135,27 +109,9 @@ public class Player_Control : MonoBehaviour {
 		{
 			Velocity.z += -Velocity.z * Time.deltaTime * 2.0f;
 			Velocity.x += -Velocity.x * Time.deltaTime * 2.0f;
-			//if (!jumping && height > 0)
-			//{
-			//	Velocity.y += -0.5f * Time.deltaTime;
-			//}
 	
 		}
 	}
-	//
-	//void applyVelocity()
-	//{
-	//	if (Velocity.y > height)
-	//	{
-	//		Velocity.y = height;
-	//		transform.Translate(Velocity);
-	//		Velocity.y = 0;
-	//	}
-	//	else
-	//	{
-	//		transform.Translate(Velocity);
-	//	}
-	//}w
 
 	private void checkForGrounded()
 	{
@@ -166,9 +122,52 @@ public class Player_Control : MonoBehaviour {
 		}
 	}
 
+	bool ObjectIsInFront()
+	{
+		RaycastHit ForwardMid;
+		RaycastHit ForwardLeft;
+		RaycastHit ForwardRight;
+
+		int layerMask = 1 << 8;
+		layerMask = ~layerMask;
+
+		Vector3 tempVelocity = Velocity; // a version of velocity that has the Y value set to 0.
+		tempVelocity.y = 0;
+
+		Vector3 midOrigin = transform.position + tempVelocity.normalized * radius;
+		Vector3 leftOrigin = midOrigin + (Vector3.Cross(tempVelocity.normalized, transform.up) * radius);
+		Vector3 rightOrigin = midOrigin + (Vector3.Cross(transform.up, tempVelocity.normalized) * radius);
+
+		if (Physics.Raycast(midOrigin, tempVelocity.normalized, out ForwardMid, maxDistanceray, layerMask))
+		{
+			if(ForwardMid.distance < (transform.position + Velocity).)
+			{
+				return true;
+			}
+		}
+
+		if (Physics.Raycast(leftOrigin, tempVelocity.normalized, out ForwardLeft, maxDistanceray, layerMask))
+		{
+			if (ForwardLeft.distance < Velocity.magnitude)
+			{
+				return true;
+			}
+		}
+
+		if (Physics.Raycast(rightOrigin, tempVelocity.normalized, out ForwardRight, maxDistanceray, layerMask))
+		{
+			if (ForwardRight.distance < Velocity.magnitude)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void FixedUpdate()
 	{
-		updateHeightFromGroundDetails();
+		updateCollisionDetails();
 
 		Velocity += getInputAcceleration();
 		applyVelocityDampening();
@@ -178,6 +177,13 @@ public class Player_Control : MonoBehaviour {
 
 		applyGravity();
 		checkForGrounded();
+
+		CollisionInFront = ObjectIsInFront(); // this function should cast 3 rays in the direction the player is headed to see if the player is about to collide with anything
+
+		if(CollisionInFront)
+		{
+			Velocity -= new Vector3(0, Velocity.y, 0);
+		}
 
 		transform.Translate(Velocity);
 
