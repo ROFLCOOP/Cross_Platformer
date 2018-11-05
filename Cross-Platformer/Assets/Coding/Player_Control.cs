@@ -19,6 +19,7 @@ public class Player_Control : MonoBehaviour {
 		if (Input.GetKey(KeyCode.W))
 		{
 			Velocity += transform.forward * Speed * Time.deltaTime;
+            Debug.Log("W Pressed");
 		}
 		
 		if (Input.GetKey(KeyCode.S))

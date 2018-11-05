@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1022,12 +1022,12 @@ Prefab:
     - target: {fileID: 114361845965343392, guid: c529d9860aac9f645b709ab460d71619,
         type: 2}
       propertyPath: NextScene_PlayerObject_1
-      value: P1Cube
+      value: P1Capsule
       objectReference: {fileID: 0}
     - target: {fileID: 114361845965343392, guid: c529d9860aac9f645b709ab460d71619,
         type: 2}
       propertyPath: NextScene_PlayerObject_2
-      value: P2Cube
+      value: P2Capsule
       objectReference: {fileID: 0}
     - target: {fileID: 114361845965343392, guid: c529d9860aac9f645b709ab460d71619,
         type: 2}

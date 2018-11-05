@@ -88,7 +88,7 @@ public class UmpireScript : MonoBehaviour {
         if (Tot_RemainingSecs <= 0) { runGameOver(); }
     }
 
-    void scorePoint (int player)
+    public void scorePoint (int player)
     {
         if (player == 1)            { P1Score++;}
         else if (player == 2)       { P2Score++; }
