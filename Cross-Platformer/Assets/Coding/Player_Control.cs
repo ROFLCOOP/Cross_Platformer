@@ -16,10 +16,12 @@ public class Player_Control : MonoBehaviour {
 	private const float timerIncrement = 0.001f;
 	private const int maxDistanceray = 1000;
 	private float height = 0;
+	private float distanceToObject;
 	private bool CollisionInFront = false;
 
 	// Use this for initialization
 	void Start() {
+
 	}
 
 
@@ -80,7 +82,25 @@ public class Player_Control : MonoBehaviour {
 		return inputVelocity;
 
 	}
-	
+
+	private void OnDrawGizmos()
+	{
+
+		Vector3 tempVelocity = Velocity; // a version of velocity that has the Y value set to 0.
+		tempVelocity.y = 0;
+
+		Vector3 rayOffset = tempVelocity.normalized * radius;
+		Quaternion leftOffsetRotate = Quaternion.AngleAxis(45, new Vector3(0, 1, 0));
+		Quaternion RightOffsetRotate = Quaternion.AngleAxis(-45, new Vector3(0, 1, 0));
+		Vector3 midOrigin = transform.position + rayOffset;
+		Vector3 leftOrigin = transform.position + (leftOffsetRotate * rayOffset);
+		Vector3 rightOrigin = transform.position + (RightOffsetRotate * rayOffset);
+
+		Gizmos.DrawLine(midOrigin, midOrigin + tempVelocity);
+		Gizmos.DrawLine(leftOrigin, leftOrigin + tempVelocity);
+		Gizmos.DrawLine(rightOrigin, rightOrigin + tempVelocity);
+	}
+
 
 	private void applyGravity()
 	{
@@ -134,37 +154,65 @@ public class Player_Control : MonoBehaviour {
 		Vector3 tempVelocity = Velocity; // a version of velocity that has the Y value set to 0.
 		tempVelocity.y = 0;
 
-		Vector3 midOrigin = transform.position + tempVelocity.normalized * radius;
-		Vector3 leftOrigin = midOrigin + (Vector3.Cross(tempVelocity.normalized, transform.up) * radius);
-		Vector3 rightOrigin = midOrigin + (Vector3.Cross(transform.up, tempVelocity.normalized) * radius);
+		Vector3 rayOffset = tempVelocity.normalized * radius;
+		Quaternion leftOffsetRotate = Quaternion.AngleAxis(45, new Vector3(0, 1, 0));
+		Quaternion RightOffsetRotate = Quaternion.AngleAxis(-45, new Vector3(0, 1, 0));
+		Vector3 midOrigin = transform.position + rayOffset;
+		Vector3 leftOrigin = transform.position + (leftOffsetRotate * rayOffset);
+		Vector3 rightOrigin = transform.position + (RightOffsetRotate * rayOffset);
 
-		if (Physics.Raycast(midOrigin, tempVelocity.normalized, out ForwardMid, maxDistanceray, layerMask))
+
+		for (float offset = -0.75f; offset <= 0.75f; offset += 0.75f)
+
 		{
-			if(ForwardMid.distance < (transform.position + Velocity).)
+			if (Physics.Raycast(midOrigin + new Vector3(0, offset, 0), tempVelocity.normalized, out ForwardMid, maxDistanceray, layerMask))
 			{
-				return true;
+				if (ForwardMid.distance < Velocity.magnitude)
+				{
+					distanceToObject = ForwardMid.distance;
+					return true;
+				}
 			}
-		}
 
-		if (Physics.Raycast(leftOrigin, tempVelocity.normalized, out ForwardLeft, maxDistanceray, layerMask))
-		{
-			if (ForwardLeft.distance < Velocity.magnitude)
+			if (Physics.Raycast(leftOrigin, tempVelocity.normalized, out ForwardLeft, maxDistanceray, layerMask))
 			{
-				return true;
+				if (ForwardLeft.distance < Velocity.magnitude)
+				{
+					distanceToObject = ForwardLeft.distance;
+					return true;
+				}
 			}
-		}
 
-		if (Physics.Raycast(rightOrigin, tempVelocity.normalized, out ForwardRight, maxDistanceray, layerMask))
-		{
-			if (ForwardRight.distance < Velocity.magnitude)
+			if (Physics.Raycast(rightOrigin, tempVelocity.normalized, out ForwardRight, maxDistanceray, layerMask))
 			{
-				return true;
+				if (ForwardRight.distance < Velocity.magnitude)
+				{
+					distanceToObject = ForwardLeft.distance;
+					return true;
+				}
 			}
 		}
 
 		return false;
 	}
 
+	void CheckForHorizontalCollision()
+	{
+		CollisionInFront = ObjectIsInFront();
+
+		if (CollisionInFront)
+		{
+			//Vector3 tempVelocity = Velocity;
+			//Velocity.x = 0;
+			//Velocity.z = 0;
+			//tempVelocity.y = 0;
+			//tempVelocity *= distanceToObject;
+			//Velocity += tempVelocity;
+
+			Velocity.x = 0;
+			Velocity.z = 0;
+		}
+	}
 	private void FixedUpdate()
 	{
 		updateCollisionDetails();
@@ -178,12 +226,8 @@ public class Player_Control : MonoBehaviour {
 		applyGravity();
 		checkForGrounded();
 
-		CollisionInFront = ObjectIsInFront(); // this function should cast 3 rays in the direction the player is headed to see if the player is about to collide with anything
-
-		if(CollisionInFront)
-		{
-			Velocity -= new Vector3(0, Velocity.y, 0);
-		}
+		// this function should cast 3 rays in the direction the player is headed to see if the player is about to collide with anything
+		CheckForHorizontalCollision();
 
 		transform.Translate(Velocity);
 
