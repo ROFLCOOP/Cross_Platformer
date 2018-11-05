@@ -27,14 +27,14 @@ public class Controller_Management_Behaviour : MonoBehaviour
         public PlayerInfo(Controller_Management_Behaviour manager, int i)
         {
             PlayerNo = i;
-            Colour = Color.red;
+            ColourCode = 0;
             playerObject = null;
             if (PlayerNo == 0) { playerObject = manager.PlayerObject_1; }
             else if (PlayerNo == 1) { playerObject = manager.PlayerObject_2; }
             else { Debug.Log("Error Player has no assigned object"); }
         }
         public int PlayerNo;
-        public Color Colour;
+        public int ColourCode;
         public GameObject playerObject;
     }
 
@@ -95,19 +95,25 @@ public class Controller_Management_Behaviour : MonoBehaviour
         }
     }
 
-    void AssignPlayerColour(int codeNo)
+    public void AssignPlayerColour(int playerNo, int colourCode)
     {
-        int joystick = codeNo / 10;
-        int colourCode = codeNo % 10;
+        int joystick = 0;
+        for (int i = 0; i < 5; ++i)
+        {
+            if (!Joystick_Player_Map.ContainsKey(i)) continue;
 
-        Color hue = palette[colourCode];
+            if (Joystick_Player_Map[i].PlayerNo == playerNo)
+            {
+                joystick = i;
+            }
+        }
 
         PlayerInfo Data = Joystick_Player_Map[joystick];
-        Data.Colour = hue;
+        Data.ColourCode = colourCode;
         Joystick_Player_Map[joystick] = Data;
     }
 
-    void ReadyPlayer(int player)
+    public void ReadyPlayer(int player)
     {
         if (player == 1) { P1Ready = true; }
         else if (player == 2) { P2Ready = true; }
