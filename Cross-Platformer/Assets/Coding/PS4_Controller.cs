@@ -6,6 +6,23 @@ using UnityEngine;
 public class PS4_Controller : MonoBehaviour {
 
     Controller_Management_Behaviour controller;
+    
+    public struct InputPacket //Holds data for Left & Right Stick Movement, and Jump Button
+    {
+        public InputPacket(float LS_H, float LS_V, float RS_H, float RS_V, bool BT_J)
+        {
+            LS_Horiz    = LS_H;
+            LS_Vert     = LS_V;
+            RS_Horiz    = RS_H;
+            RS_Vert     = RS_V;
+            btn_jump    = BT_J;
+        }
+        public float LS_Horiz;
+        public float LS_Vert;
+        public float RS_Horiz;
+        public float RS_Vert;
+        public bool btn_jump;
+    }
 
     void Start()
     {
@@ -27,51 +44,48 @@ public class PS4_Controller : MonoBehaviour {
 
             
 
-            float horizontal = Input.GetAxis("Horizontal_" + i.ToString()); 
-            //Horizontal pos = LS pushed right, neg = LS pushed Left, reset = LS returned to horizontal centre
-            if (horizontal > 0.2f)  
-            {
-                PS4_Player.SendMessage("OnHorizontal_pos");
-            }
-            if (horizontal < -0.2f)
-            {
-                PS4_Player.SendMessage("OnHorizontal_neg"); 
-            }
-            if (horizontal > -0.2f && horizontal < 0.2f)
-            {
-                PS4_Player.SendMessage("OnHorizontal_reset");
-            }
+            float LShorizontal = Input.GetAxis("LS_Horizontal_" + i.ToString());
+            //LSHorizontal pos = LS pushed right, neg = LS pushed Left
 
-            float vertical = Input.GetAxis("Vertical_" + i.ToString());
-            //Vertical pos = LS pushed up, neg = LS pushed down,
-            if (vertical < -0.1f) //Vertical scale has been inverted
-            {
-                PS4_Player.SendMessage("OnVertical_neg");
-            }
-            if (vertical > 0.1f)
-            {
-                PS4_Player.SendMessage("OnVertical_pos");
-            }
-    
-
-            if (Input.GetButtonDown("Fire1_" + i.ToString())) //Fire1 button is Circle
-            {
-                PS4_Player.SendMessage("OnFire1");
-            }
+            float LSvertical = Input.GetAxis("LS_Vertical_" + i.ToString());
+            //LSVertical pos = LS pushed up, neg = LS pushed down,
 
 
+            float RShorizontal = Input.GetAxis("RS_Horizontal_" + i.ToString());
+            //RSHorizontal pos = RS pushed right, neg = RS pushed Left
+            
+            float RSvertical = Input.GetAxis("RS_Vertical_" + i.ToString());
+            //RSVertical pos = RS pushed up, neg = RS pushed down,
 
+            //bool BTNfire1;
+            //if (Input.GetButtonDown("Fire1_" + i.ToString())) //Fire1 button is Circle
+            //{
+            //    BTNfire1 = true;
+            //}
+            //else
+            //{
+            //    BTNfire1 = false;
+            //}
+
+
+            bool BTNjump;
             if (Input.GetButtonDown("Jump_" + i.ToString())) //Jump button is Cross
             {
-                PS4_Player.SendMessage("OnJump");
+                BTNjump = true;
             }
-
+            else
+            {
+                BTNjump = false;
+            }
+            InputPacket ctrl_arr = new InputPacket(LShorizontal, LSvertical, RShorizontal, RSvertical, BTNjump);
+            PS4_Player.SendMessage("processInput", ctrl_arr);
 
 
             if (Input.GetButtonDown("Options_" + i.ToString())) 
             {
                 PS4_Player.SendMessage("OnStart");
             }
+
 
         }
 

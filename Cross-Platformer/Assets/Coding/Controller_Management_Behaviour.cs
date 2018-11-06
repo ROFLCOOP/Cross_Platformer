@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 public class Controller_Management_Behaviour : MonoBehaviour
 {
 
-    public GameObject PlayerObject_1;
-    public GameObject PlayerObject_2;
-
-    public string NextScene_PlayerObject_1;
-    public string NextScene_PlayerObject_2;
+    GameObject PlayerObject_1;
+    GameObject PlayerObject_2;
 
     Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
 
@@ -51,6 +48,7 @@ public class Controller_Management_Behaviour : MonoBehaviour
     void Start()
     {
         Joystick_Player_Map = new Dictionary<int, PlayerInfo>();
+        OnSceneLoad();
     }
 
     // Update is called once per frame
@@ -129,8 +127,8 @@ public class Controller_Management_Behaviour : MonoBehaviour
 
     public void OnSceneLoad()
     {
-        PlayerObject_1 = GameObject.Find(NextScene_PlayerObject_1);
-        PlayerObject_2 = GameObject.Find(NextScene_PlayerObject_2);
+        PlayerObject_1 = GameObject.FindGameObjectWithTag("P1Object");
+        PlayerObject_2 = GameObject.FindGameObjectWithTag("P2Object");
         for (int i = 0; i < 4; ++i)
         {
             if (!Joystick_Player_Map.ContainsKey(i)) continue;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Colour_Select : MonoBehaviour {
 
     Material myTexture;
@@ -33,6 +34,7 @@ public class Colour_Select : MonoBehaviour {
     new MeshRenderer renderer;
     private object controller;
     Controller_Management_Behaviour control_mnge_funcs;
+    PS4_Controller inputs_funcs;
 
     // Use this for initialization
     void Start () {
@@ -41,6 +43,7 @@ public class Colour_Select : MonoBehaviour {
         //Scene_Controls = GameObject.Find("Scene_Director");
         Controls_Manager = GameObject.Find("PS4_Inbox");
         control_mnge_funcs = Controls_Manager.GetComponent<Controller_Management_Behaviour>();
+        inputs_funcs = Controls_Manager.GetComponent<PS4_Controller>();
 
         renderer = GetComponent<MeshRenderer>();
     }
@@ -49,7 +52,15 @@ public class Colour_Select : MonoBehaviour {
     {
         OnJump();
     }
-	
+	void processInput(PS4_Controller.InputPacket inputPacket)
+    {
+        float LS_Horizontal = inputPacket.LS_Horiz;
+        if (LS_Horizontal > 0.1f)           { OnHorizontal_pos(); }
+        else if (LS_Horizontal < -0.1f)     { OnHorizontal_neg(); }
+        else                                { OnHorizontal_reset(); }
+
+        if (inputPacket.btn_jump)           { OnJump(); } 
+    }
 	// Update is called once per frame
     public void OnHorizontal_pos()                  //When Controller is pushed to the right it cycles through the colour choices
     {
@@ -94,11 +105,6 @@ public class Colour_Select : MonoBehaviour {
         Debug.Log("Select Button Pressed");
     }
 
-    public void OnFire1()                                   //Fire1 functions as a back button, undoing the 
-    {
-       
-    }
-
     public void ActivatePlayer()                    //Activates Player for when player has reached the "assigned controller" state
     {
         myTexture = activated_mat;
@@ -111,24 +117,4 @@ public class Colour_Select : MonoBehaviour {
         if (playerNo == 1) { Controls_Manager.SendMessage("LoadScene"); }
     }
 
-    public void OnVertical_neg()
-    {
-
-    }
-    public void OnVertical_pos()
-    {
-
-    }
-
-    //void AddPlayerController(int Controller)
-    //{
-    //    playerSpaces.Add(new assignControllers(Controller));
-    //    foreach (assignControllers player in playerSpaces)
-    //    {
-    //        if (player.HasControllerAssigned == false)
-    //        {
-    //            return player.AssignController(Controller);
-    //        }
-    //    }
-    //}
 }

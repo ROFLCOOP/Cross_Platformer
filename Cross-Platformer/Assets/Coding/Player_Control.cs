@@ -19,6 +19,8 @@ public class Player_Control : MonoBehaviour {
 	private float distanceToObject;
 	private bool CollisionInFront = false;
 
+    PS4_Controller.InputPacket InputDataStream = new PS4_Controller.InputPacket();
+
 	// Use this for initialization
 	void Start() {
 
@@ -50,36 +52,54 @@ public class Player_Control : MonoBehaviour {
 	Vector3 getInputAcceleration()
 	{
 		Vector3 inputVelocity = new Vector3();
-		if (Input.GetKey(KeyCode.W))
-		{
-			inputVelocity += transform.forward * Speed * Time.deltaTime;
-		}
 
-		if (Input.GetKey(KeyCode.S))
-		{
-			inputVelocity += -transform.forward * Speed * Time.deltaTime;
-		}
+        float LS_Horizontal = InputDataStream.LS_Horiz;
+        inputVelocity += transform.right * Speed * Time.deltaTime * LS_Horizontal;
 
-		if (Input.GetKey(KeyCode.A))
-		{
-			inputVelocity += -transform.right * Speed * Time.deltaTime;
-		}
+        float LS_Vertical = InputDataStream.LS_Vert;
+        inputVelocity += transform.forward * Speed * Time.deltaTime * LS_Vertical;
 
-		if (Input.GetKey(KeyCode.D))
-		{
-			inputVelocity += transform.right * Speed * Time.deltaTime;
-		}
+        //float RS_Horizontal = InputDataStream.RS_Horiz;
 
-		if (Input.GetKey(KeyCode.Space) && !jumping)
-		{
-			jumping = true;
-			inputVelocity.y = 1.0f;
-			jumpDecelerationTimer = 0;
-		}
+        
 
-		// create rays here for frontal colission detection
+        if (InputDataStream.btn_jump && !jumping)
+        {
+            jumping = true;
+            inputVelocity.y = 1.0f;
+            jumpDecelerationTimer = 0;
+        }
 
-		return inputVelocity;
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //	inputVelocity += transform.forward * Speed * Time.deltaTime;
+        //}
+
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //	inputVelocity += -transform.forward * Speed * Time.deltaTime;
+        //}
+
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //	inputVelocity += -transform.right * Speed * Time.deltaTime;
+        //}
+
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //	inputVelocity += transform.right * Speed * Time.deltaTime;
+        //}
+
+        //if (Input.GetKey(KeyCode.Space) && !jumping)
+        //{
+        //	jumping = true;
+        //	inputVelocity.y = 1.0f;
+        //	jumpDecelerationTimer = 0;
+        //}
+
+        // create rays here for frontal colission detection
+
+        return inputVelocity;
 
 	}
 
@@ -213,6 +233,11 @@ public class Player_Control : MonoBehaviour {
 			Velocity.z = 0;
 		}
 	}
+
+    void processInput(PS4_Controller.InputPacket ctrl_arr)
+    {
+        InputDataStream = ctrl_arr;
+    }
 	private void FixedUpdate()
 	{
 		updateCollisionDetails();
