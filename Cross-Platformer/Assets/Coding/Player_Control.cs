@@ -8,7 +8,9 @@ public class Player_Control : MonoBehaviour {
 	[Range(1, 100)]
 	public float Speed = 25.0f;
 
-	private Vector3 gravity = new Vector3 (0.0f, 0.6f, 0.0f);
+    public float rotate_Speed = 25.0f;
+
+    private Vector3 gravity = new Vector3 (0.0f, 0.6f, 0.0f);
 
 	//private bool spaceHeld = false;
 	private bool jumping = false;
@@ -102,6 +104,15 @@ public class Player_Control : MonoBehaviour {
         return inputVelocity;
 
 	}
+
+    void updateRotation()
+    {
+        float RS_Horizontal = InputDataStream.RS_Horiz;
+        float rotate = rotate_Speed * Time.deltaTime * RS_Horizontal;
+
+        Quaternion rotation = Quaternion.AngleAxis(rotate, new Vector3(0, 1, 0));
+        this.transform.rotation *= rotation;
+    }
 
 	private void OnDrawGizmos()
 	{
@@ -245,10 +256,15 @@ public class Player_Control : MonoBehaviour {
 		Velocity += getInputAcceleration();
 		applyVelocityDampening();
 
+        updateRotation();
 
 
 
-		applyGravity();
+
+
+
+
+        applyGravity();
 		checkForGrounded();
 
 		// this function should cast 3 rays in the direction the player is headed to see if the player is about to collide with anything
