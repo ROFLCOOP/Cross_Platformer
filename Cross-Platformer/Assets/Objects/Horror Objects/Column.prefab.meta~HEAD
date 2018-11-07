@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Cross-Platformer/Assets/Materials/PS4_1.prefab.meta
+guid: 1bd6722e3ad8bdf4c9e0d03d6fec8323
+timeCreated: 1540786634
+=======
+guid: 7e3f137301be77d4d8d33910b5fd6dc4
+timeCreated: 1541112921
+>>>>>>> master:Cross-Platformer/Assets/Objects/Horror Objects/Column.prefab.meta~HEAD
+licenseType: Free
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

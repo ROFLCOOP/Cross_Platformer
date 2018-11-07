@@ -39,6 +39,7 @@ Cross-Platformer/ProjectSettings/
 
 Cross-Platformer/UnityPackageManager/
 
+<<<<<<< HEAD
 Cross-Platformer/Assets/Coding/Colour_Select\.cs\.meta
 
 Cross-Platformer/Assets/Coding/Debug_Judge_Script_PS4\.cs\.meta
@@ -82,3 +83,6 @@ Cross-Platformer/Assets/Scenes/Main_Scene\.unity\.meta
 Cross-Platformer/Assets/Scenes/Movement Testing\.unity\.meta
 
 Cross-Platformer/Assets/Scenes/Player Select Screen\.unity\.meta
+=======
+
+>>>>>>> master
