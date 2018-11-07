@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 public class Controller_Management_Behaviour : MonoBehaviour
 {
 
-    public GameObject PlayerObject_1;
-    public GameObject PlayerObject_2;
-
-    public string NextScene_PlayerObject_1;
-    public string NextScene_PlayerObject_2;
+    GameObject PlayerObject_1;
+    GameObject PlayerObject_2;
 
     Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
 
@@ -45,10 +42,15 @@ public class Controller_Management_Behaviour : MonoBehaviour
     int currentNumberPlayers = 0;
 
     public string NextScene;
+    PS4_Controller inputs_manager;
 
-
-    // Use this for initialization
     void Start()
+    {
+        OnSceneLoad();
+        inputs_manager = (GameObject.Find("PS4_Inbox")).GetComponent<PS4_Controller>();
+    }
+    // Use this for initialization
+    void Awake()
     {
         Joystick_Player_Map = new Dictionary<int, PlayerInfo>();
     }
@@ -69,7 +71,7 @@ public class Controller_Management_Behaviour : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump_" + joystickNo.ToString()))
             {
-                Debug.Log("Jump Button Pressed on" + joystickNo.ToString());
+                Debug.Log("Jump Button Pressed on " + joystickNo.ToString());
                 if (!Joystick_Player_Map.ContainsKey(joystickNo))
                 {
                     Joystick_Player_Map[joystickNo] = new PlayerInfo(this, currentNumberPlayers);
@@ -89,7 +91,7 @@ public class Controller_Management_Behaviour : MonoBehaviour
         {
             if (Input.GetButtonDown("Options_" + controllingJoystick))
             {
-                SceneManager.LoadScene(NextScene);
+                LoadScene();
                 Debug.Log("Options Button Pressed on Player 1's controller");
             }
         }
@@ -119,19 +121,22 @@ public class Controller_Management_Behaviour : MonoBehaviour
         else if (player == 2) { P2Ready = true; }
     }
 
-    void LoadScene()
+    public void LoadScene()
     {
         if (P1Ready && P2Ready)
         {
             SceneManager.LoadScene(NextScene);
+            OnSceneLoad();
+            inputs_manager.OnSceneLoad();
         }
+
     }
 
     public void OnSceneLoad()
     {
-        PlayerObject_1 = GameObject.Find(NextScene_PlayerObject_1);
-        PlayerObject_2 = GameObject.Find(NextScene_PlayerObject_2);
-        for (int i = 0; i < 4; ++i)
+        PlayerObject_1 = GameObject.FindGameObjectWithTag("P1Object");
+        PlayerObject_2 = GameObject.FindGameObjectWithTag("P2Object");
+        for (int i = 0; i < 5; ++i)
         {
             if (!Joystick_Player_Map.ContainsKey(i)) continue;
 
