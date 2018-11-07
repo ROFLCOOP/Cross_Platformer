@@ -42,13 +42,17 @@ public class Controller_Management_Behaviour : MonoBehaviour
     int currentNumberPlayers = 0;
 
     public string NextScene;
+    PS4_Controller inputs_manager;
 
-
-    // Use this for initialization
     void Start()
     {
-        Joystick_Player_Map = new Dictionary<int, PlayerInfo>();
         OnSceneLoad();
+        inputs_manager = (GameObject.Find("PS4_Inbox")).GetComponent<PS4_Controller>();
+    }
+    // Use this for initialization
+    void Awake()
+    {
+        Joystick_Player_Map = new Dictionary<int, PlayerInfo>();
     }
 
     // Update is called once per frame
@@ -67,7 +71,7 @@ public class Controller_Management_Behaviour : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump_" + joystickNo.ToString()))
             {
-                Debug.Log("Jump Button Pressed on" + joystickNo.ToString());
+                Debug.Log("Jump Button Pressed on " + joystickNo.ToString());
                 if (!Joystick_Player_Map.ContainsKey(joystickNo))
                 {
                     Joystick_Player_Map[joystickNo] = new PlayerInfo(this, currentNumberPlayers);
@@ -87,7 +91,7 @@ public class Controller_Management_Behaviour : MonoBehaviour
         {
             if (Input.GetButtonDown("Options_" + controllingJoystick))
             {
-                SceneManager.LoadScene(NextScene);
+                LoadScene();
                 Debug.Log("Options Button Pressed on Player 1's controller");
             }
         }
@@ -117,19 +121,22 @@ public class Controller_Management_Behaviour : MonoBehaviour
         else if (player == 2) { P2Ready = true; }
     }
 
-    void LoadScene()
+    public void LoadScene()
     {
         if (P1Ready && P2Ready)
         {
             SceneManager.LoadScene(NextScene);
+            OnSceneLoad();
+            inputs_manager.OnSceneLoad();
         }
+
     }
 
     public void OnSceneLoad()
     {
         PlayerObject_1 = GameObject.FindGameObjectWithTag("P1Object");
         PlayerObject_2 = GameObject.FindGameObjectWithTag("P2Object");
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 5; ++i)
         {
             if (!Joystick_Player_Map.ContainsKey(i)) continue;
 

@@ -19,7 +19,7 @@ public class Player_Control : MonoBehaviour {
 	private float distanceToObject;
 	private bool CollisionInFront = false;
 
-    PS4_Controller.InputPacket InputDataStream = new PS4_Controller.InputPacket();
+    PS4_Controller.InputPacket InputDataStream = new PS4_Controller.InputPacket(0,0,0,0,false);
 
 	// Use this for initialization
 	void Start() {

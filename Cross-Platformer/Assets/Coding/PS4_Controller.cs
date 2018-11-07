@@ -6,8 +6,11 @@ using UnityEngine;
 public class PS4_Controller : MonoBehaviour {
 
     Controller_Management_Behaviour controller;
-    
-    public struct InputPacket //Holds data for Left & Right Stick Movement, and Jump Button
+
+    GameObject PlayerObject_1;
+    GameObject PlayerObject_2;
+
+    public class InputPacket //Holds data for Left & Right Stick Movement, and Jump Button
     {
         public InputPacket(float LS_H, float LS_V, float RS_H, float RS_V, bool BT_J)
         {
@@ -28,23 +31,24 @@ public class PS4_Controller : MonoBehaviour {
     {
         controller = gameObject.GetComponent<Controller_Management_Behaviour>();
         GameObject.DontDestroyOnLoad(gameObject);
+        OnSceneLoad();
     }
 
     // Update is called once per frame
     void Update () {
 
-        for(int i = 0;i < 4;++i)
+        for(int i = 0;i < 5;++i)
         {
-            if (!controller.Joystick_Player_Map.ContainsKey(i)) continue;
+            if (!(controller.Joystick_Player_Map.ContainsKey(i))) continue;
 
             Controller_Management_Behaviour.PlayerInfo info = controller.Joystick_Player_Map[i];
 
+            GameObject PS4_Player = info.playerObject;
+            if (PS4_Player == null) { OnSceneLoad(); }
 
-            GameObject PS4_Player = controller.Joystick_Player_Map[i].playerObject;
 
-            
-
-            float LShorizontal = Input.GetAxis("LS_Horizontal_" + i.ToString());
+                float LShorizontal = Input.GetAxis("LS_Horizontal_" + i.ToString());
+            if (LShorizontal != 0) { Debug.Log("LS moved"); }
             //LSHorizontal pos = LS pushed right, neg = LS pushed Left
 
             float LSvertical = Input.GetAxis("LS_Vertical_" + i.ToString());
@@ -92,6 +96,32 @@ public class PS4_Controller : MonoBehaviour {
             
 
 	}
+
+    public void OnSceneLoad()
+    {
+        PlayerObject_1 = GameObject.FindGameObjectWithTag("P1Object");
+        PlayerObject_2 = GameObject.FindGameObjectWithTag("P2Object");
+        for (int i = 0; i < 5; ++i)
+        {
+            if (!(controller.Joystick_Player_Map.ContainsKey(i)))
+            {
+                continue;
+            }
+
+            Controller_Management_Behaviour.PlayerInfo info = controller.Joystick_Player_Map[i];
+
+            if (info.PlayerNo == 0)
+            {
+                info.playerObject = PlayerObject_1;
+            }
+
+            if (info.PlayerNo == 1)
+            {
+                info.playerObject = PlayerObject_2;
+            }
+
+        }
+    }
 
 
 }

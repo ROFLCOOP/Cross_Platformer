@@ -8,7 +8,7 @@ public class Colour_Select : MonoBehaviour {
 
     Material myTexture;
 
-    public Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
+    Color[] palette = new Color[6] { Color.red, Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow };
 
     int colourNo = 0;
     bool horiz_pos_press = false;
@@ -114,7 +114,7 @@ public class Colour_Select : MonoBehaviour {
 
     public void OnStart()                           //Options buttons press, Load scene will only occur if both players are ready
     {
-        if (playerNo == 1) { Controls_Manager.SendMessage("LoadScene"); }
+        if (playerNo == 0) { Controls_Manager.GetComponent<Controller_Management_Behaviour>().LoadScene(); }
     }
 
 }
