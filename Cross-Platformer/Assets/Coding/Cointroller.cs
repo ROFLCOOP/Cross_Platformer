@@ -11,8 +11,8 @@ public class Cointroller : MonoBehaviour {
 
     string currSceneName;
 
-    public string player1Name;
-    public string player2Name;
+    GameObject P1Obj;
+    GameObject P2Obj;
 
     UmpireScript umpire_fnc;
 
@@ -23,7 +23,8 @@ public class Cointroller : MonoBehaviour {
         umpire_fnc = GameObject.Find("Umpire").GetComponent<UmpireScript>();
         if (currSceneName == "HorrorLevel" || currSceneName == "Main_Scene")  { moveCoin(); }
         else                                                                  { Destroy(this); }
-        
+        P1Obj = GameObject.Find("P1Capsule");
+        P2Obj = GameObject.Find("P2Capsule");
     }
 	
 	// Update is called once per frame
@@ -35,8 +36,8 @@ public class Cointroller : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         GameObject otherCollider = collision.gameObject;
-        if (otherCollider.name == player1Name) { umpire_fnc.scorePoint(1); }
-        else if (otherCollider.name == player2Name) { umpire_fnc.scorePoint(2); }
+        if (otherCollider == P1Obj) { umpire_fnc.scorePoint(1); }
+        else if (otherCollider == P2Obj) { umpire_fnc.scorePoint(2); }
         moveCoin();
     }
 

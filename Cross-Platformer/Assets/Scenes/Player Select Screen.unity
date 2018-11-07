@@ -146,7 +146,7 @@ MonoBehaviour:
   Controls_Manager: {fileID: 305250050}
   label: {fileID: 357663489}
   playerNo: 2
-  activated_mat: {fileID: 2100000, guid: 712e031e95c69ed47863b4c78c09a437, type: 2}
+  activated_mat: {fileID: 2100000, guid: 21163ea794d6aca40b33dea8f44515c4, type: 2}
 --- !u!23 &250920166
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -246,13 +246,12 @@ MonoBehaviour:
 --- !u!114 &305250052
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114361845965343392, guid: c529d9860aac9f645b709ab460d71619,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 305250050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db79d941966add4f9a100d4947ede67, type: 3}
+  m_Script: {fileID: 11500000, guid: f7134e9779d2f264189dcc0a8e5890b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NextScene: HorrorLevel
@@ -597,7 +596,7 @@ MonoBehaviour:
   Controls_Manager: {fileID: 305250050}
   label: {fileID: 1923870763}
   playerNo: 1
-  activated_mat: {fileID: 2100000, guid: db2e1f66a76487c42aef884ec6b49d03, type: 2}
+  activated_mat: {fileID: 2100000, guid: 094400febaf7c1f49824e8b134631165, type: 2}
 --- !u!23 &1077629030
 MeshRenderer:
   m_ObjectHideFlags: 0

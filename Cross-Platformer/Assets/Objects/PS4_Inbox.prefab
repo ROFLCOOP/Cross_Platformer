@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4666812816077422}
   - component: {fileID: 114104201291739056}
-  - component: {fileID: 114361845965343392}
+  - component: {fileID: 114379775033568448}
   m_Layer: 0
   m_Name: PS4_Inbox
   m_TagString: Untagged
@@ -52,15 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9740c713ea48a46b0244da83083e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PS4_Player: {fileID: 0}
-  LS_Horizontal_positive: OnHorizontal_pos
-  LS_Horizontal_negative: OnHorizontal_neg
-  LS_Horizontal_reset: OnHorizontal_reset
-  LS_Vertical_positive: 
-  LS_Vertical_negative: 
-  Button_Fire1: OnBack
-  Button_Jump: OnSelect
---- !u!114 &114361845965343392
+--- !u!114 &114379775033568448
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -68,7 +60,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1970880914391792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db79d941966add4f9a100d4947ede67, type: 3}
+  m_Script: {fileID: 11500000, guid: f7134e9779d2f264189dcc0a8e5890b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: InputTest_MainScene
+  NextScene: HorrorLevel
