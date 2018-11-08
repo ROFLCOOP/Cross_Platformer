@@ -54,7 +54,9 @@ public class Cointroller : MonoBehaviour {
         }
         else if (currSceneName == "Main_Scene")
         {
-            //transform.Translate(sky_coin_spots[select]);
+            GameObject parent = GameObject.Find("CoinNodes");
+            int selected = Random.Range(0, 10);
+            transform.position = parent.transform.GetChild(selected).position;
             Debug.Log("Sky Level Coin Locations not set up yet!");
         }
         else
