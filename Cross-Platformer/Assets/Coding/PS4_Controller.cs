@@ -43,12 +43,12 @@ public class PS4_Controller : MonoBehaviour {
 
             Controller_Management_Behaviour.PlayerInfo info = controller.Joystick_Player_Map[i];
 
+            if (info.playerObject == null) { OnSceneLoad(); }
             GameObject PS4_Player = info.playerObject;
-            if (PS4_Player == null) { OnSceneLoad(); }
+            
 
 
-                float LShorizontal = Input.GetAxis("LS_Horizontal_" + i.ToString());
-            if (LShorizontal != 0) { Debug.Log("LS moved"); }
+            float LShorizontal = Input.GetAxis("LS_Horizontal_" + i.ToString());
             //LSHorizontal pos = LS pushed right, neg = LS pushed Left
 
             float LSvertical = Input.GetAxis("LS_Vertical_" + i.ToString());
