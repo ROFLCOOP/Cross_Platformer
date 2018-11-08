@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7134e9779d2f264189dcc0a8e5890b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: HorrorLevel
+  NextScene: Main_Scene
 --- !u!4 &305250053
 Transform:
   m_ObjectHideFlags: 0
@@ -890,7 +890,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <       >
+  m_Text: <        >
 --- !u!222 &1745430123
 CanvasRenderer:
   m_ObjectHideFlags: 0
