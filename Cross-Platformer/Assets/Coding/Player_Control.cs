@@ -44,8 +44,11 @@ public class Player_Control : MonoBehaviour {
 		layerMask = ~layerMask;
 		if (Physics.Raycast(transform.position + new Vector3(0, -1.0f, 0), -transform.up, out hit, maxDistanceray, layerMask))
 		{
-			height = hit.distance;
-			ground = hit.collider.gameObject;
+            if (hit.collider.gameObject.name != "Coin Object")
+            {
+                height = hit.distance;
+                ground = hit.collider.gameObject;
+            }
 		}
 
 		
@@ -198,7 +201,7 @@ public class Player_Control : MonoBehaviour {
 		{
 			if (Physics.Raycast(midOrigin + new Vector3(0, offset, 0), tempVelocity.normalized, out ForwardMid, maxDistanceray, layerMask))
 			{
-				if (ForwardMid.distance < Velocity.magnitude)
+				if (ForwardMid.distance < Velocity.magnitude && ForwardMid.collider.gameObject.name != "Coin Object")
 				{
 					distanceToObject = ForwardMid.distance;
 					return true;
@@ -207,7 +210,7 @@ public class Player_Control : MonoBehaviour {
 
 			if (Physics.Raycast(leftOrigin, tempVelocity.normalized, out ForwardLeft, maxDistanceray, layerMask))
 			{
-				if (ForwardLeft.distance < Velocity.magnitude)
+				if (ForwardLeft.distance < Velocity.magnitude && ForwardLeft.collider.gameObject.name != "Coin Object")
 				{
 					distanceToObject = ForwardLeft.distance;
 					return true;
@@ -216,7 +219,7 @@ public class Player_Control : MonoBehaviour {
 
 			if (Physics.Raycast(rightOrigin, tempVelocity.normalized, out ForwardRight, maxDistanceray, layerMask))
 			{
-				if (ForwardRight.distance < Velocity.magnitude)
+				if (ForwardRight.distance < Velocity.magnitude && ForwardRight.collider.gameObject.name != "Coin Object")
 				{
 					distanceToObject = ForwardLeft.distance;
 					return true;

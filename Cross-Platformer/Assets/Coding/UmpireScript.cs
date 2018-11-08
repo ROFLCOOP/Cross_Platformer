@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UmpireScript : MonoBehaviour {
 
@@ -88,6 +89,7 @@ public class UmpireScript : MonoBehaviour {
         else                       { TXT_timer.text = Dis_RemainingMins.ToString() + ":0" + Dis_RemainingSecs.ToString(); }
 
         if (Tot_RemainingSecs <= 0) { runGameOver(); }
+        LoadNextLevel();
     }
 
     public void scorePoint (int player)
@@ -132,5 +134,21 @@ public class UmpireScript : MonoBehaviour {
         }
         Gameplay.enabled = false;
         GameOver.enabled = true;
+    }
+    void LoadNextLevel()
+    {
+        if(GameOver.enabled && Tot_RemainingSecs <= -5)
+        {
+            string currSceneName = (SceneManager.GetActiveScene()).name;
+            if(currSceneName == "Main_Scene")
+            {
+                controller.LoadNextScene("HorrorLevel");
+            }
+            else if (currSceneName == "HorrorLevel")
+            {
+                controller.LoadNextScene("Main_Scene");
+            }
+
+        }
     }
 }

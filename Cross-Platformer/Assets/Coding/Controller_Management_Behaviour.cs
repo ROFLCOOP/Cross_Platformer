@@ -41,7 +41,9 @@ public class Controller_Management_Behaviour : MonoBehaviour
 
     int currentNumberPlayers = 0;
 
-    public string NextScene;
+    string[] sceneList = new string[2] { "Main_Scene", "HorrorLevel" };
+
+    
     PS4_Controller inputs_manager;
 
     void Start()
@@ -71,7 +73,6 @@ public class Controller_Management_Behaviour : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump_" + joystickNo.ToString()))
             {
-                Debug.Log("Jump Button Pressed on " + joystickNo.ToString());
                 if (!Joystick_Player_Map.ContainsKey(joystickNo))
                 {
                     Joystick_Player_Map[joystickNo] = new PlayerInfo(this, currentNumberPlayers);
@@ -92,7 +93,6 @@ public class Controller_Management_Behaviour : MonoBehaviour
             if (Input.GetButtonDown("Options_" + controllingJoystick))
             {
                 LoadScene();
-                Debug.Log("Options Button Pressed on Player 1's controller");
             }
         }
     }
@@ -125,11 +125,18 @@ public class Controller_Management_Behaviour : MonoBehaviour
     {
         if (P1Ready && P2Ready)
         {
+            int sceneNo = Random.Range(0, 2);
+            string NextScene = sceneList[sceneNo];
             SceneManager.LoadScene(NextScene);
             OnSceneLoad();
             inputs_manager.OnSceneLoad();
         }
-
+    }
+    public void LoadNextScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        OnSceneLoad();
+        inputs_manager.OnSceneLoad();
     }
 
     public void OnSceneLoad()
