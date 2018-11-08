@@ -73,6 +73,8 @@ public class UmpireScript : MonoBehaviour {
         P1ScoreCounter.color = palette[P1ColourCode];
         P2ScoreTitle.color = palette[P2ColourCode];
         P2ScoreCounter.color = palette[P2ColourCode];
+        P1Score = 0;
+        P2Score = 0;
     }
 	
 	// Update is called once per frame

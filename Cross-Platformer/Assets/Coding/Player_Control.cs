@@ -108,7 +108,7 @@ public class Player_Control : MonoBehaviour {
     void updateRotation()
     {
         float RS_Horizontal = InputDataStream.RS_Horiz;
-        float rotate = rotate_Speed * Time.deltaTime * RS_Horizontal;
+        float rotate = rotate_Speed * Time.deltaTime * RS_Horizontal * 0.5f;
 
         Quaternion rotation = Quaternion.AngleAxis(rotate, new Vector3(0, 1, 0));
         this.transform.rotation *= rotation;
@@ -270,7 +270,8 @@ public class Player_Control : MonoBehaviour {
 		// this function should cast 3 rays in the direction the player is headed to see if the player is about to collide with anything
 		CheckForHorizontalCollision();
 
-		transform.Translate(Velocity);
+        Vector3 localVelocity = Quaternion.Inverse(transform.rotation) * Velocity;
+		transform.Translate(localVelocity);
 
 
 

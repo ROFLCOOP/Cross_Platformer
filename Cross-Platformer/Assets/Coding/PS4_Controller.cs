@@ -43,7 +43,7 @@ public class PS4_Controller : MonoBehaviour {
 
             Controller_Management_Behaviour.PlayerInfo info = controller.Joystick_Player_Map[i];
 
-            if (info.playerObject == null) { OnSceneLoad(); }
+            if (info.playerObject == null) { OnSceneLoad();  }
             GameObject PS4_Player = info.playerObject;
             
 
