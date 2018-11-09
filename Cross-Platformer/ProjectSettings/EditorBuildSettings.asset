@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Player Select Screen.unity
+    guid: 35c5e968ce2bc2044a7fca90c5801a3e
+  - enabled: 1
+    path: Assets/Scenes/Main_Scene.unity
+    guid: b60a12347fb6cef469d734313d4f0eee
+  - enabled: 1
+    path: Assets/Scenes/HorrorLevel.unity
+    guid: 7032c3197da549f469d720ddfb1a5f3e

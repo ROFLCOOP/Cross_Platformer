@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
+//using UnityEditor;
 
 public class Cointroller : MonoBehaviour {
 
@@ -55,10 +55,10 @@ public class Cointroller : MonoBehaviour {
             transform.position = parent.transform.GetChild(selected).position;
             Debug.Log("Sky Level Coin Locations not set up yet!");
         }
-        else
-        {
-            EditorUtility.DisplayDialog("ERROR", currSceneName + "does not match any scenes programmed for coin location\nSuggestion: Review moveCoin function in Cointroller Script.", "OK", "K THNX");
-        }
+        //else
+        //{
+        //    EditorUtility.DisplayDialog("ERROR", currSceneName + "does not match any scenes programmed for coin location\nSuggestion: Review moveCoin function in Cointroller Script.", "OK", "K THNX");
+        //}
 
     }
 }
